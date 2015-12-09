@@ -1,3 +1,7 @@
+Voorbeeld 1
+
+_____________________________________________________
+
 start:
 TextWindow.WriteLine("Geef het aantal items op...")
 Invoer = TextWindow.ReadNumber()  
@@ -43,4 +47,49 @@ textWindow.WriteLine(eindTijd - startTijd1 + " Seconden Inclusief genereren")
 textWindow.WriteLine(eindTijd - startTijd2 + " Seconden Exclusief genereren")
 textWindow.WriteLine(startTijd2 - startTijd1 + " Seconden verschil")
 TextWindow.WriteLine("_______________")
+Goto start
+
+Voorbeeld 2 
+
+___________________________
+
+start:
+TextWindow.Title ="Bubble Sorting 2.0"
+TextWindow.WriteLine("Geef het gewenste aantal getallen op..")
+Invoer = TextWindow.ReadNumber()
+TextWindow.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+")
+TextWindow.WriteLine("")
+TextWindow.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+")
+TextWindow.WriteLine("Start Generating")
+TextWindow.WriteLine("Time : " + Clock.Hour + " : " + Clock.Minute + " : " + Clock.Second + " : "+ Clock.Millisecond)
+TextWindow.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+")
+
+
+For i = 1 To Invoer
+  output = Math.GetRandomNumber(4096)
+  TextWindow.WriteLine(output)
+  nums[i] = output
+  
+EndFor 
+TextWindow.WriteLine("------[Bezig Met Sorteren]------")
+
+For i = 1 To Array.GetItemCount(nums) - 1
+  For j = i + 1 To Array.GetItemCount(nums)
+    If (nums[j] < nums[i]) Then
+      temp = nums[i]
+      nums[i] = nums[j]
+      nums[j] = temp
+    EndIf
+  EndFor
+EndFor
+
+For i = 1 To Invoer
+  TextWindow.WriteLine(nums[i])
+EndFor
+TextWindow.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+")
+textWindow.WriteLine("[> Het duurde in totaal "+Clock.Millisecond+ " milliseconden <]")
+TextWindow.WriteLine("Time : " + Clock.Hour + " : " + Clock.Minute + " : " + Clock.Second + " : "+ Clock.Millisecond)
+TextWindow.WriteLine("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+")
+TextWindow.WriteLine("")
+TextWindow.WriteLine("")
 Goto start
