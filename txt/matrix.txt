@@ -1,0 +1,9 @@
+start:
+TextWindow.Title ="Welcome To The Matrix"
+TextWindow.ForegroundColor = "Green" 
+
+For i = 1 To 100
+  output = Math.GetRandomNumber(9)
+  i = output
+  TextWindow.Write("implanting script : " + i + " ")
+EndFor
