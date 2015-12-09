@@ -3,13 +3,6 @@ columns = 16
 size = 24
 offsetx = (columns+1) * size
 offsety = (rows+1) * size
-GraphicsWindow.Height=rows*size*2+size
-Height = GraphicsWindow.Height
-GraphicsWindow.Width=columns*size*2+size
-Width = GraphicsWindow.Width
-GraphicsWindow.Show()
-GraphicsWindow.BackgroundColor = "SteelBlue"
-GraphicsWindow.MouseDown = OnClick
 continue = "false"
 
 While (1=1)
@@ -26,25 +19,13 @@ While (1=1)
       'GraphicsWindow.BrushColor = GraphicsWindow.GetRandomColor()
       i = r * columns + c
       boxes[i]["obj"] = Shapes.AddRectangle(size, size)
-      boxes2[i]["obj"] = Shapes.AddRectangle(size,size)
-      boxes3[i]["obj"] = Shapes.AddRectangle(size,size)
       Shapes.Move(boxes[i]["obj"], c * size, r * size)
-      Shapes.Move(boxes2[i]["obj"],c * size + offsetx, r * size)
-      Shapes.Move(boxes3[i]["obj"],c * size, r * size + offsety)
       boxes[i]["val"] = blue*256*256 + green*256 + red
-      boxes2[i]["val"] = blue*256*256 + green*256 + red
-      boxes3[i]["val"] = blue*256*256 + green*256 + red
     EndFor
   EndFor
 
   'set up for sorting
   arrlen = i
-
-  GraphicsWindow.BrushColor = "black"
-  title = "Sorting algorithm efficiency comparison"
-  GraphicsWindow.DrawText(offsetx, offsety, title)
-  arrsizetext = "Size of array = " + (arrlen + 1)
-  GraphicsWindow.DrawText(offsetx, offsety+0.5*size, arrsizetext)
 
   GraphicsWindow.DrawText(offsetx, offsety+2*size, "Quick Sort:")
   start = Clock.ElapsedMilliseconds
@@ -53,105 +34,15 @@ While (1=1)
   bubtext = "Elapsed time = " + bubtime/1000 + " seconds"
   GraphicsWindow.DrawText(offsetx+100, offsety+2*size, bubtext)
 
-  GraphicsWindow.DrawText(offsetx, offsety+3*size, "Insertion Sort:")
-  start = Clock.ElapsedMilliseconds
-  insertionsort()
-  instime = Clock.ElapsedMilliseconds - start
-  instext = "Elapsed time = " + instime/1000 + " seconds"
-  GraphicsWindow.DrawText(offsetx+100, offsety+3*size, instext)
-
-  GraphicsWindow.DrawText(offsetx, offsety+4*size, "Shell Sort:")
-  start = Clock.ElapsedMilliseconds
-  shellsort()
-  shelltime = Clock.ElapsedMilliseconds - start
-  shelltext = "Elapsed time = " + shelltime/1000 + " seconds"
-  GraphicsWindow.DrawText(offsetx+100, offsety+4*size, shelltext)
-
   GraphicsWindow.DrawText(offsetx, offsety+6*size, "Program ended.")
   While continue <> "true"
   endwhile
-  GraphicsWindow.BrushColor = "SteelBlue"
-  GraphicsWindow.FillRectangle(offsetx, offsety, Width - offsetx, Height - offsety)
   continue = "false"
 endwhile
 
 Sub OnClick
   continue = "true"
 endsub
-
-Sub shellsort
-  inc = Math.Round(arrlen/2)
-  While inc > 0
-    For i = inc To arrlen
-      temp = boxes3[i]["val"]
-      tempbox = boxes3[i]["obj"]
-      j = i
-      while (j >= inc) and (boxes3[j-inc]["val"] > temp)
-        boxes3[j]["val"] = boxes3[j-inc]["val"]
-        boxes3[j]["obj"] = boxes3[j-inc]["obj"]
-        r = Math.Floor((j)/columns)
-        c = Math.Remainder(j,columns)
-        Shapes.Move(boxes3[j]["obj"],c * size, r * size + offsety)
-        j = j - inc
-      EndWhile
-      boxes3[j]["val"] = temp
-      boxes3[j]["obj"] = tempbox
-      r = Math.Floor((j)/columns)
-      c = Math.Remainder(j,columns)
-      Shapes.Move(boxes3[j]["obj"],c * size, r * size + offsety)
-    EndFor
-    inc = Math.Round(inc/2.2)
-  Endwhile
-
-Endsub
-
-Sub insertionsort
-
-  For i = 1 to arrlen
-    value = boxes2[i]["val"]
-    boxtemp = boxes2[i]["obj"]
-    j = i - 1
-    done = "false"
-    While done = "false"
-      If boxes2[j]["val"] > value then
-        boxes2[j + 1]["val"] = boxes2[j]["val"]
-        boxes2[j+1]["obj"] = boxes2[j]["obj"]
-        r = Math.Floor((j+1)/columns)
-        c = Math.Remainder(j+1,columns)
-        Shapes.Move(boxes2[j+1]["obj"],c * size + offsetx, r * size)
-        j = j - 1
-        If j < 0 then
-          done = "true"
-        EndIf
-      Else
-        done = "true"
-      EndIf
-      'Program.Delay(10) 
-    EndWhile
-    boxes2[j+1]["val"] = value
-    boxes2[j+1]["obj"] = boxtemp
-    r = Math.Floor((j+1)/columns)
-    c = Math.Remainder(j+1,columns)
-    Shapes.Move(boxes2[j+1]["obj"],c * size + offsetx, r * size)
-  EndFor
-
-Endsub
-
-Sub bubblesort
-  imax = arrlen
-  'highval = boxes[1]["val"]
-  swapped = "true"
-  While swapped = "true"
-    swapped = "false"
-    For bubi = 1 To imax
-      If boxes[bubi]["val"] < boxes[bubi-1]["val"] Then
-        swap()
-      EndIf
-      'Program.Delay(10)
-    Endfor
-    imax = imax - 1
-  Endwhile
-EndSub
 
 sub qSort
   val = "val"
@@ -229,24 +120,5 @@ sub qSort
       EndWhile
     EndIf
   endwhile
-endsub
-
-
-Sub swap
-
-  boxtemp = boxes[bubi-1]["obj"]
-  boxtempval = boxes[bubi-1]["val"]
-  boxes[bubi-1]["obj"]=boxes[bubi]["obj"]
-  boxes[bubi-1]["val"]=boxes[bubi]["val"]
-  boxes[bubi]["obj"]=boxtemp
-  boxes[bubi]["val"]=boxtempval
-  'highval=boxes[i]["val"]
-  r = Math.Floor((bubi-1)/columns)
-  c = Math.Remainder(bubi-1,columns)
-  Shapes.Move(boxes[bubi-1]["obj"],c * size, r * size)
-  r = Math.Floor((bubi)/columns)
-  c = Math.Remainder(bubi,columns)
-  Shapes.Move(boxes[bubi]["obj"],c * size, r * size)
-  swapped = "true"
 
 Endsub
