@@ -1,0 +1,46 @@
+start:
+TextWindow.WriteLine("Geef het aantal items op...")
+Invoer = TextWindow.ReadNumber()  
+startTijd1 = Clock.ElapsedMilliseconds / 1000
+
+TextWindow.WriteLine("_______________")
+File.DeleteFile("C:\bs_output.txt")
+File.WriteLine("C:\bs_output.txt", 1, "---------------------------    Genereren")
+For i = 1 To Invoer
+  output = Math.GetRandomNumber(Invoer)
+  TextWindow.WriteLine(output)
+  nums[i] = output
+  File.WriteLine("C:\bs_output.txt", i + 1, nums[i])
+EndFor 
+File.WriteLine("C:\bs_output.txt", Invoer + 2, "---------------------------    Sorteren")
+TextWindow.WriteLine("__________Bezig__________")
+startTijd2 = Clock.ElapsedMilliseconds / 1000
+For i = 1 To Array.GetItemCount(nums) - 1
+  For j = i + 1 To Array.GetItemCount(nums)
+    If (nums[j] < nums[i]) Then
+      temp = nums[i]
+      nums[i] = nums[j]
+      nums[j] = temp
+    EndIf
+  EndFor
+EndFor
+
+For i = 1 To Invoer
+  TextWindow.WriteLine(nums[i])
+  File.WriteLine("C:\bs_output.txt", Invoer + 2 + i, nums[i])
+EndFor
+eindTijd = Clock.ElapsedMilliseconds / 1000
+File.WriteLine("C:\bs_output.txt", Invoer * 2 + 4, "---------------------------    Resultaat van: " + Invoer)
+File.WriteLine("C:\bs_output.txt", Invoer * 2 + 5, eindTijd - startTijd1 + " Seconden Inclusief genereren")
+File.WriteLine("C:\bs_output.txt", Invoer * 2 + 6, eindTijd - startTijd2 + " Seconden Exclusief genereren")
+File.WriteLine("C:\bs_output.txt", Invoer * 2 + 7, startTijd2 - startTijd1 + " Seconden verschil")
+
+TextWindow.WriteLine("_______________")
+textWindow.WriteLine("Resultaat van: " + Invoer)
+TextWindow.WriteLine("")
+
+textWindow.WriteLine(eindTijd - startTijd1 + " Seconden Inclusief genereren")
+textWindow.WriteLine(eindTijd - startTijd2 + " Seconden Exclusief genereren")
+textWindow.WriteLine(startTijd2 - startTijd1 + " Seconden verschil")
+TextWindow.WriteLine("_______________")
+Goto start
