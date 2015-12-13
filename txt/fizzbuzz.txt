@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FizzBuzz
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            for (uint i = 1; i <= 100; i++)
+            {
+                string Apply = null;
+
+                if (i % 3 == 0)
+                    Apply = "Fizz";
+
+                if (i % 5 == 0)
+                    Apply += "Buzz";
+
+                Console.WriteLine(Apply ?? i.ToString());
+            }
+
+            Console.WriteLine("Press enter to exit");
+            Console.ReadLine();
+        }
+    }
+}
