@@ -1,0 +1,15 @@
+            int fieldGrid = 10;
+            int[,] map = new int[fieldGrid, fieldGrid];
+
+            Random rnd = new Random();
+            for (int y = 0; y < 10;y++)
+            {
+                Console.WriteLine("\r");
+                for(int x = 0; x < 10; x++)
+                {
+                    map[y, x] = 0;
+                    Console.Write(map[y, x] + " ");
+                }
+            }
+            Console.ReadKey();
+            Environment.Exit(0);
